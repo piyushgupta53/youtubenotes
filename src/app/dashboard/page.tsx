@@ -21,13 +21,15 @@ export default function Dashboard() {
     setError("");
 
     try {
-      const response = await fetch("/api/generate-notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url }),
-      });
+      const response = await fetch(
+        `/api/generate-notes?url=${encodeURIComponent(url)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to generate notes");
@@ -65,22 +67,23 @@ export default function Dashboard() {
 
       {notes && (
         <div className="bg-white rounded-lg shadow-lg p-6 space-y-6">
-          <h2 className="text-2xl font-semibold">{notes.title}</h2>
+          <h2 className="text-2xl font-semibold">Title</h2>
 
           <div>
             <h3 className="text-xl font-semibold mb-2">Summary</h3>
-            <p className="text-gray-700">{notes.summary}</p>
+            <p className="text-gray-700">Summary</p>
           </div>
 
           <div>
             <h3 className="text-xl font-semibold mb-2">Key Points</h3>
-            <ul className="list-disc pl-6 space-y-2">
+            {JSON.stringify(notes, null, 2)}
+            {/* <ul className="list-disc pl-6 space-y-2">
               {notes.keyPoints.map((point, index) => (
                 <li key={index} className="text-gray-700">
                   {point}
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       )}
