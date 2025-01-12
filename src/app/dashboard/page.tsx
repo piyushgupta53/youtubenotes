@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ReactMarkdown from "react-markdown";
 
 interface Notes {
   notes: string;
@@ -109,7 +110,7 @@ export default function Dashboard() {
             <h2 className="text-2xl font-semibold mb-4">Generated Notes</h2>
             <div className="prose max-w-none">
               <div className="whitespace-pre-wrap text-gray-700">
-                {notes.notes}
+                <ReactMarkdown>{notes.notes}</ReactMarkdown>
               </div>
             </div>
           </div>
