@@ -27,8 +27,12 @@ export async function GET(request: Request) {
     }
 
     const data = await response.json();
-    return NextResponse.json(data, { status: 200 });
+    // Ensure we're returning the transcript in the expected format
+    return NextResponse.json({
+      transcript: data.transcript || data, // Depending on the API response structure
+    });
   } catch (error) {
+    console.error("Transcript Error:", error);
     return NextResponse.json(
       { error: "Failed to generate transcript" },
       { status: 500 }
